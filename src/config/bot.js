@@ -24,7 +24,7 @@ export const botConfig = {
     activities: [
       {
         name: "Custom Status", // required by Discord API, not shown in the client
-        state: "stalking",     // this is what people actually see
+        state: "Çok Yakında Sizlerle Olacak",     // this is what people actually see
         type: 4,               // Custom
       },
     ],
@@ -93,7 +93,7 @@ export const botConfig = {
   embeds: {
     colors: {
       // Main brand colors.
-      primary: "#336699",
+      primary: "#194B54",
       secondary: "#2F3136",
 
       // Standard status colors for success/error/warning/info messages.
@@ -161,15 +161,15 @@ export const botConfig = {
   economy: {
     currency: {
       // Currency display name.
-      name: "coins",
+      name: "TL",
       // Plural display name.
-      namePlural: "coins",
+      namePlural: "TL",
       // Currency symbol shown in balances.
-      symbol: "$",
+      symbol: "₺",
     },
 
     // Starting balance for new users.
-    startingBalance: 0,
+    startingBalance: 150,
 
     // Maximum bank amount before upgrades (if upgrades are used).
     baseBankCapacity: 100000,
@@ -412,7 +412,7 @@ export const botConfig = {
       // Built-in counter types and how each count is calculated.
       members: {
         name: "👥 Members",
-        description: "Total members in the server",
+        description: "Sunucudaki kişi sayısı",
         getCount: (guild) => guild.memberCount.toString(),
       },
       bots: {
@@ -434,13 +434,13 @@ export const botConfig = {
   // GENERIC BOT MESSAGES
   // =========================
   messages: {
-    noPermission: "You do not have permission to use this command.",
-    cooldownActive: "Please wait {time} before using this command again.",
-    errorOccurred: "An error occurred while executing this command.",
+    noPermission: "Bu komutu kullanma izniniz yok.",
+    cooldownActive: "Bu komutu tekrar kullanmadan önce lütfen bekleyin.",
+    errorOccurred: "Bu komut yürütülürken bir hata oluştu.",
     missingPermissions:
-      "I am missing required permissions to perform this action.",
-    commandDisabled: "This command has been disabled.",
-    maintenanceMode: "The bot is currently in maintenance mode.",
+      "Bu eylemi gerçekleştirmek için gerekli izinler eksik.",
+    commandDisabled: "Bu komut devre dışı bırakıldı.",
+    maintenanceMode: "Bot şu anda bakım modunda.",
   },
 
   // =========================
