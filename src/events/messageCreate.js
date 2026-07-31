@@ -76,8 +76,8 @@ async function handlePrefixCommand(message, client) {
     if (isMaintenanceMode() && !isBotOwner(message.author.id)) {
       await message.channel.send({
         embeds: [createEmbed({
-          title: 'Maintenance Mode',
-          description: getBotMessage('maintenanceMode'),
+          title: 'Bakım Modu',
+          description: getBotMessage('maintenanceMode') || 'Bot şu anda bakım modundadır.',
           color: 'warning',
         })],
       }).catch(() => {});
@@ -87,8 +87,8 @@ async function handlePrefixCommand(message, client) {
     if (!isCommandCategoryEnabled(command.category)) {
       await message.channel.send({
         embeds: [createEmbed({
-          title: 'Feature Disabled',
-          description: getBotMessage('commandDisabled'),
+          title: 'Özellik Devre Dışı',
+          description: getBotMessage('commandDisabled') || 'Bu komut veya kategori şu anda devre dışıdır.',
           color: 'error',
         })],
       }).catch(() => {});
@@ -99,8 +99,8 @@ async function handlePrefixCommand(message, client) {
     if (!supportsPrefixExecution(command) || restriction.blocked) {
       if (restriction.blocked && restriction.reason) {
         const embed = createEmbed({
-          title: 'Slash Command Only',
-          description: `${restriction.reason}\nUse \`/${resolvedCommandName}\` instead.`,
+          title: 'Sadece Eğik Çizgi (Slash) Komutu',
+          description: `${restriction.reason}\nBunun yerine \`/${resolvedCommandName}\` komutunu kullanın.`,
           color: 'info',
         });
         await message.channel.send({ embeds: [embed] }).catch(() => {});
@@ -110,8 +110,8 @@ async function handlePrefixCommand(message, client) {
 
     if (!(await isCommandEnabled(client, message.guild.id, resolvePrefixAccessKey(command.data, args), command.category))) {
       const embed = createEmbed({
-        title: 'Command Disabled',
-        description: 'This command has been disabled for this server.',
+        title: 'Komut Devre Dışı',
+        description: 'Bu komut bu sunucu için kapatılmıştır.',
         color: 'error',
       });
       await message.channel.send({ embeds: [embed] }).catch(() => {});
@@ -130,8 +130,8 @@ async function handlePrefixCommand(message, client) {
     if (!abuseProtection.allowed) {
       const formattedCooldown = formatCooldownDuration(abuseProtection.remainingMs);
       const embed = createEmbed({
-        title: 'Command Cooldown',
-        description: `This command is on cooldown. Please wait ${formattedCooldown} before trying again.`,
+        title: 'Komut Bekleme Süresi',
+        description: `Bu komut bekleme süresinde. Lütfen tekrar kullanmak için ${formattedCooldown} bekleyin.`,
         color: 'error',
       });
       await message.channel.send({ embeds: [embed] }).catch(() => {});
@@ -166,7 +166,7 @@ async function handleCountingGame(message, client) {
         currentStreak: 0,
       });
 
-      const failureMessage = await message.channel.send(`❌ Count broken by <@${message.author.id}>. The sequence has been reset to **1**.`);
+      const failureMessage = await message.channel.send(`❌ Sayı sırası <@${message.author.id}> tarafından bozuldu. Sıra **1** olarak sıfırlandı.`);
       setTimeout(() => {
         failureMessage.delete().catch(() => {});
       }, 10000);
@@ -240,6 +240,7 @@ async function handleLeveling(message, client) {
       finalXP = Math.floor(finalXP * levelingConfig.xpMultiplier);
     }
 
+    // XP arka planda işlenir, tebrik mesajı tamamen engellendi.
     const result = await addXp(client, message.guild, message.member, finalXP);
 
     if (result?.leveledUp) {
