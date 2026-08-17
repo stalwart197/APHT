@@ -109,15 +109,20 @@ export default {
                 return await replyUserError(interaction, { type: ErrorTypes.UNKNOWN, message: `The leveling system is already set up on this server (level-up notifications go to <#${existingConfig.levelUpChannel}>).\n\nUse \`/level dashboard\` to adjust any settings.` });
             }
 
-            const newConfig = {
-                ...existingConfig,
-                configured: true,
-                enabled: true,
-                levelUpChannel: channel.id,
-                xpRange: { min: xpMin, max: xpMax },
-                xpCooldown: xpCooldown,
-                levelUpMessage: message,
-                announceLevelUp: true,
+            // ... üst kısımlar aynı kalıyor
+
+const newConfig = {
+    ...existingConfig,
+    configured: true,
+    enabled: true,
+    levelUpChannel: channel.id,
+    xpRange: { min: xpMin, max: xpMax },
+    xpCooldown: xpCooldown,
+    levelUpMessage: message,
+    announceLevelUp: false, // <-- Burayı 'true' yerine 'false' yap
+};
+
+// ... alt kısımlar aynı kalıyor
             };
 
             await saveLevelingConfig(client, interaction.guildId, newConfig);
